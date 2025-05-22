@@ -43,13 +43,13 @@ jobs:
         npm run test
       env:
         CI: true
-        HOST: localhost
-        PORT: 3000
-        PGHOST: localhost
-        PGPORT: 5432
-        PGUSER: postgres
-        PGPASSWORD: mysecretpassword
-        PGDATABASE: forumapi_test
-        ACCESS_TOKEN_KEY: secret
-        REFRESH_TOKEN_KEY: terces
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
+        PGHOST: ${{ secrets.PGHOST }}
+        PGPORT: ${{ secrets.PGPORT }}
+        PGUSER: ${{ secrets.PGUSER }}
+        PGPASSWORD: ${{ secrets.PGPASSWORD }}
+        PGDATABASE: ${{ secrets.PGDATABASE }}
+        ACCESS_TOKEN_KEY: ${{ secrets.ACCESS_TOKEN_KEY }}
+        REFRESH_TOKEN_KEY: ${{ secrets.REFRESH_TOKEN_KEY }}
         ACCESS_TOKEN_AGE: 3600
