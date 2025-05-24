@@ -3,10 +3,11 @@ const DetailThread = require('../../Domains/threads/entities/DetailThread');
 const DetailReply = require('../../Domains/replies/entities/DetailReply');
 
 class GetDetailThreadUseCase {
-  constructor({ threadRepository, commentRepository, replyRepository }) {
+  constructor({ threadRepository, commentRepository, replyRepository, likeRepository }) {
     this._threadRepository = threadRepository;
     this._commentRepository = commentRepository;
     this._replyRepository = replyRepository;
+    this._likeRepository = likeRepository;
   }
 
   async execute(useCaseParams) {
@@ -17,6 +18,7 @@ class GetDetailThreadUseCase {
 
     detailThread.comments = await Promise.all(
       comments.map(async (comment) => {
+        const likeCount = await this._likeRepository.getLikeCountByCommentId(comment.id);
         const replies = await this._replyRepository.getReplyByCommentId(comment.id);
 
         const mappedReplies = replies.map((reply) => new DetailReply(reply));
@@ -24,6 +26,7 @@ class GetDetailThreadUseCase {
         return new DetailComment({
           ...comment,
           replies: mappedReplies,
+          likeCount,
         });
       })
     );
