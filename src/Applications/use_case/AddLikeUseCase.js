@@ -11,8 +11,11 @@ class AddLikeUseCase {
 
     await this._threadRepository.verifyThreadId(threadId);
     await this._commentRepository.verifyCommentId(commentId);
-    await this._likeRepository.verifyLike(commentId, userId);
-    return this._likeRepository.addLike(commentId, userId);
+    const result = await this._likeRepository.verifyLikeExisting({ commentId, userId });
+    if (result) {
+      return this._likeRepository.deleteLike({ commentId, userId });
+    }
+    return this._likeRepository.addLike({ commentId, userId });
   }
 }
 

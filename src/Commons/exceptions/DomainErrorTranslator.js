@@ -27,6 +27,8 @@ DomainErrorTranslator._directories = {
   'DETAIL_COMMENT.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('tidak dapat memuat comment thread karena tipe data tidak sesuai'),
   'NEW_REPLY.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('tidak dapat membuat reply baru karena properti yang dibutuhkan tidak ada'),
   'NEW_REPLY.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('tidak dapat membuat reply baru karena tipe data tidak sesuai'),
+  'NEW_LIKE.NOT_CONTAIN_NEEDED_PROPERTY': new InvariantError('tidak dapat menambah atau menghapus like comment karena properti yang dibutuhkan tidak ada'),
+  'NEW_LIKE.NOT_MEET_DATA_TYPE_SPECIFICATION': new InvariantError('tidak dapat menambah atau menghapus like comment karena tipe data tidak sesuai'),
 
 };
 
