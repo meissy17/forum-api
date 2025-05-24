@@ -1,5 +1,6 @@
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const DetailComment = require('../../../Domains/comments/entities/DetailComment');
+const LikeRepository = require('../../../Domains/likes/LikeRepository');
 const DetailReply = require('../../../Domains/replies/entities/DetailReply');
 const ReplyRepository = require('../../../Domains/replies/ReplyRepository');
 const DetailThread = require('../../../Domains/threads/entities/DetailThread');
@@ -31,6 +32,7 @@ describe('GetDetailThreadUseCase', () => {
         replies: expectedReply,
         content: 'Comment Content',
         isDeleted: false,
+        likeCount: 1,
       })
     ];
 
@@ -46,6 +48,7 @@ describe('GetDetailThreadUseCase', () => {
     const mockThreadRepository = new ThreadRepository();
     const mockCommentRepository = new CommentRepository();
     const mockReplyRepository = new ReplyRepository();
+    const mockLikeRepository = new LikeRepository();
 
     mockThreadRepository.getThreadbyId = jest.fn(() => Promise.resolve({
       id: 'thread-123',
@@ -65,6 +68,8 @@ describe('GetDetailThreadUseCase', () => {
       }
     ]));
 
+    mockLikeRepository.getLikeCountByCommentId = jest.fn(() => Promise.resolve(1));
+
     mockReplyRepository.getReplyByCommentId = jest.fn(() => Promise.resolve([
       {
         id: 'reply-123',
@@ -78,7 +83,8 @@ describe('GetDetailThreadUseCase', () => {
     const getDetailThreadUseCase = new GetDetailThreadUseCase({
       threadRepository: mockThreadRepository,
       commentRepository: mockCommentRepository,
-      replyRepository: mockReplyRepository
+      replyRepository: mockReplyRepository,
+      likeRepository: mockLikeRepository,
     });
 
     // Action
@@ -88,6 +94,7 @@ describe('GetDetailThreadUseCase', () => {
     expect(detailThread).toEqual(expectedDetailThread);
     expect(mockThreadRepository.getThreadbyId).toBeCalledWith(useCaseParams.threadId);
     expect(mockCommentRepository.getCommentByThreadId).toBeCalledWith(useCaseParams.threadId);
+    expect(mockLikeRepository.getLikeCountByCommentId).toBeCalledWith('comment-123');
     expect(mockReplyRepository.getReplyByCommentId).toBeCalledWith('comment-123');
   });
 });

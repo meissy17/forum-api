@@ -34,6 +34,7 @@ describe('an DetailComment entities', () => {
       content: 'Comment #1',
       isDeleted: false,
       replies: [],
+      likeCount: 3,
     };
 
     // Action
@@ -45,6 +46,7 @@ describe('an DetailComment entities', () => {
     expect(detailComment.date).toEqual(payload.date);
     expect(detailComment.content).toEqual(payload.content);
     expect(detailComment.replies).toEqual(payload.replies);
+    expect(detailComment.likeCount).toEqual(3);
   });
 
   it('should mapped detailComment.content correctly if isDeleted = true', () => {
@@ -56,6 +58,7 @@ describe('an DetailComment entities', () => {
       content: 'Comment #1',
       isDeleted: true,
       replies: [],
+      likeCount: 2,
     };
 
     // Action
@@ -67,5 +70,6 @@ describe('an DetailComment entities', () => {
     expect(detailComment.date).toEqual(payload.date);
     expect(detailComment.content).toEqual('**komentar telah dihapus**');
     expect(detailComment.replies).toEqual(payload.replies);
+    expect(detailComment.likeCount).toEqual(2);
   });
 });
