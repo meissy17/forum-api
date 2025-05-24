@@ -22,7 +22,7 @@ describe('/threads/{threadId}/comments/{commentId}/likes endpoint', () => {
   });
 
   describe('when PUT /threads/{threadId}/comments/{commentId}/likes', () => {
-    it('should response 201 and add likes if no existing likes found', async () => {
+    it('should response 200 and add likes if no existing likes found', async () => {
       // Arrange
       const server = await createServer(container);
       const { id, accessToken } = await AuthenticationsTableTestHelper.getAccessToken({ server });
@@ -40,11 +40,11 @@ describe('/threads/{threadId}/comments/{commentId}/likes endpoint', () => {
 
       // Assert
       const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(201);
+      expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
     });
 
-    it('should response 201 and delete likes if existing likes found', async () => {
+    it('should response 200 and delete likes if existing likes found', async () => {
       // Arrange
       const server = await createServer(container);
       const { id, accessToken } = await AuthenticationsTableTestHelper.getAccessToken({ server });
@@ -63,7 +63,7 @@ describe('/threads/{threadId}/comments/{commentId}/likes endpoint', () => {
 
       // Assert
       const responseJson = JSON.parse(response.payload);
-      expect(response.statusCode).toEqual(201);
+      expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
     });
 
