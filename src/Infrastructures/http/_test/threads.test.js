@@ -6,6 +6,7 @@ const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const AuthenticationsTableTestHelper = require('../../../../tests/AuthenticationsTableTestHelper');
 const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
 const RepliesTableTestHelper = require('../../../../tests/RepliesTableTestHelper');
+const LikesTableTestHelper = require('../../../../tests/LikesTableTestHelper');
 
 describe('/threads endpoint', () => {
   afterAll(async () => {
@@ -133,6 +134,7 @@ describe('/threads endpoint', () => {
       await ThreadsTableTestHelper.addThreads({ id: 'thread-123' });
       await CommentsTableTestHelper.addComments({ id: 'comment-123' });
       await RepliesTableTestHelper.addReplies({ id: 'reply-123' });
+      await LikesTableTestHelper.addLike({ id: 'like-123', userId: 'user-123' });
 
 
       const server = await createServer(container);
